@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>Fielding Dissertation: Conclusions</title>
+</head>
+<body>
+<h1 align="center">CONCLUSIONS</h1>
+<blockquote>
+<i>Each one of us has, somewhere in his heart, the dream to make a living world, a universe. Those of us who have been trained as architects have this desire perhaps at the very center of our lives: that one day, somewhere, somehow, we shall build one building which is wonderful, beautiful, breathtaking, a place where people can walk and dream for centuries.</i><br />
+-- Christopher Alexander [<a href="references.htm#ref_3">3</a>]
+</blockquote>
+<p>
+At the beginning of our efforts within the Internet Engineering Taskforce to define the existing Hypertext Transfer Protocol (HTTP/1.0) [<a href="references.htm#ref_19">19</a>] and design the extensions for the new standards of HTTP/1.1 [<a href="references.htm#ref_42">42</a>] and Uniform Resource Identifiers (URI) [<a href="references.htm#ref_21">21</a>], I recognized the need for a model of how the World Wide Web should work. This idealized model of the interactions within an overall Web application, referred to as the Representational State Transfer (REST) architectural style, became the foundation for the modern Web architecture, providing the guiding principles by which flaws in the preexisting architecture could be identified and extensions validated prior to deployment.</p>
+<p>
+REST is a coordinated set of architectural constraints that attempts to minimize latency and network communication while at the same time maximizing the independence and scalability of component implementations. This is achieved by placing constraints on connector semantics where other styles have focused on component semantics. REST enables the caching and reuse of interactions, dynamic substitutability of components, and processing of actions by intermediaries, thereby meeting the needs of an Internet-scale distributed hypermedia system.</p>
+<p>
+The following contributions to the field of Information and Computer Science have been made as part of this dissertation:</p>
+<ul>
+<li>
+a framework for understanding software architecture through architectural styles, including a consistent set of terminology for describing software architecture;</li>
+<li>
+a classification of architectural styles for network-based application software by the architectural properties they would induce when applied to the architecture for a distributed hypermedia system;</li>
+<li>
+REST, a novel architectural style for distributed hypermedia systems; and,</li>
+<li>
+application and evaluation of the REST architectural style in the design and deployment of the architecture for the modern World Wide Web.</li>
+</ul>
+<p>
+The modern Web is one instance of a REST-style architecture. Although Web-based applications can include access to other styles of interaction, the central focus of its protocol and performance concerns is distributed hypermedia. REST elaborates only those portions of the architecture that are considered essential for Internet-scale distributed hypermedia interaction. Areas for improvement of the Web architecture can be seen where existing protocols fail to express all of the potential semantics for component interaction, and where the details of syntax can be replaced with more efficient forms without changing the architecture capabilities. Likewise, proposed extensions can be compared to REST to see if they fit within the architecture; if not, it is more efficient to redirect that functionality to a system running in parallel with a more applicable architectural style.</p>
+<p>
+In an ideal world, the implementation of a software system would exactly match its design. Some features of the modern Web architecture do correspond exactly to their design criteria in REST, such as the use of URI [<a href="references.htm#ref_21">21</a>] as resource identifiers and the use of Internet media types [<a href="references.htm#ref_48">48</a>] to identify representation data formats. However, there are also some aspects of the modern Web protocols that exist in spite of the architectural design, due to legacy experiments that failed (but must be retained for backwards compatibility) and extensions deployed by developers unaware of the architectural style. REST provides a model not only for the development and evaluation of new features, but also for the identification and understanding of broken features.</p>
+<p>
+The World Wide Web is arguably the world's largest distributed application. Understanding the key architectural principles underlying the Web can help explain its technical success and may lead to improvements in other distributed applications, particularly those that are amenable to the same or similar methods of interaction. REST contributes both the rationale behind the modern Web's software architecture and a significant lesson in how software engineering principles can be systematically applied in the design and evaluation of a real software system.</p>
+<p>
+For network-based applications, system performance is dominated by network communication. For a distributed hypermedia system, component interactions consist of large-grain data transfers rather than computation-intensive tasks. The REST style was developed in response to those needs. Its focus upon the generic connector interface of resources and representations has enabled intermediate processing, caching, and substitutability of components, which in turn has allowed Web-based applications to scale from 100,000 requests/day in 1994 to 600,000,000 requests/day in 1999.</p>
+<p>
+The REST architectural style has been validated through six years of development of the HTTP/1.0 [<a href="references.htm#ref_19">19</a>] and HTTP/1.1 [<a href="references.htm#ref_42">42</a>] standards, elaboration of the URI [<a href="references.htm#ref_21">21</a>] and relative URL [<a href="references.htm#ref_40">40</a>] standards, and successful deployment of several dozen independently developed, commercial-grade software systems within the modern Web architecture. It has served as both a model for design guidance and as an acid test for architectural extensions to the Web protocols.</p>
+<p>
+Future work will focus on extending the architectural guidance toward the development of a replacement for the HTTP/1.x protocol family, using a more efficient tokenized syntax, but without losing the desirable properties identified by REST. The needs of wireless devices, which have many characteristics in common with the principles behind REST, will motivate further enhancements for application-level protocol design and architectures involving active intermediaries. There has also been some interest in extending REST to consider variable request priorities, differentiated quality-of-service, and representations consisting of continuous data streams, such as those generated by broadcast audio and video sources.</p>
+</body>
+</html>

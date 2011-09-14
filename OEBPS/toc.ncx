@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ncx xmlns="http://www.daisy.org/z3986/2005/ncx/" version="2005-1">
+  <head>
+    <meta name="dtb:uid" content="urn:uuid:csabapalfi.com201006041447"/>
+    <meta name="dtb:depth" content="1"/>
+    <meta name="dtb:totalPageCount" content="0"/>
+    <meta name="dtb:maxPageNumber" content="0"/>
+  </head>
+  <docTitle>
+    <text>Architectural Styles and the Design of Network-based Software Architectures</text>
+  </docTitle>
+  <navMap>
+	<navPoint id="item5" playOrder="1">
+      <navLabel>
+        <text>Abstract</text>
+      </navLabel>
+      <content src="abstract.htm"/>
+    </navPoint>
+	<navPoint id="item6" playOrder="2">
+      <navLabel>
+        <text>Intorduction</text>
+      </navLabel>
+      <content src="introduction.htm"/>
+    </navPoint>
+	<navPoint id="item7" playOrder="3">
+      <navLabel>
+        <text>CHAPTER 1: Software Architecture</text>
+      </navLabel>
+      <content src="software_arch.htm"/>
+    </navPoint>
+	<navPoint id="item8" playOrder="4">
+      <navLabel>
+        <text>CHAPTER 2: Network-based Application Architectures</text>
+      </navLabel>
+      <content src="net_app_arch.htm"/>
+    </navPoint>
+	<navPoint id="item9" playOrder="5">
+      <navLabel>
+        <text>CHAPTER 3: Network-based Architectural Styles</text>
+      </navLabel>
+      <content src="net_arch_styles.htm"/>
+    </navPoint>
+	<navPoint id="item10" playOrder="6">
+      <navLabel>
+        <text>CHAPTER 4: Designing the Web Architecture: Problems and Insights</text>
+      </navLabel>
+      <content src="web_arch_domain.htm"/>
+    </navPoint>
+	<navPoint id="item11" playOrder="7">
+      <navLabel>
+        <text>CHAPTER 5: Representational State Transfer (REST)</text>
+      </navLabel>
+      <content src="rest_arch_style.htm"/>
+    </navPoint>
+	<navPoint id="item12" playOrder="8">
+      <navLabel>
+        <text>CHAPTER 6: Experience and Evaluation</text>
+      </navLabel>
+      <content src="evaluation.htm"/>
+    </navPoint>
+	<navPoint id="item13" playOrder="9">
+      <navLabel>
+        <text>Conclusions</text>
+      </navLabel>
+      <content src="conclusions.htm"/>
+    </navPoint>
+	<navPoint id="item14" playOrder="10">
+      <navLabel>
+        <text>References</text>
+      </navLabel>
+      <content src="references.htm"/>
+    </navPoint>
+  </navMap>
+</ncx>
+
+

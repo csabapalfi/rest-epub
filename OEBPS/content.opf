@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package version="2.0" xmlns="http://www.idpf.org/2007/opf"
+         unique-identifier="BookId">
+ <metadata xmlns:dc="http://purl.org/dc/elements/1.1/"
+           xmlns:opf="http://www.idpf.org/2007/opf">
+   <dc:title>Architectural Styles and the Design of Network-based Software Architectures</dc:title> 
+   <dc:creator opf:role="aut">Roy Fielding</dc:creator>
+   <dc:language>en-US</dc:language> 
+   <dc:rights>Public Domain</dc:rights> 
+   <dc:publisher>www.csabapalfi.com</dc:publisher> 
+   <dc:identifier id="BookId">urn:uuid:csabapalfi.com201006041447</dc:identifier>
+ </metadata>
+  <manifest>
+    <item id="ncxtoc" media-type="application/x-dtbncx+xml" href="toc.ncx"/>
+    <item id="item5" media-type="application/xhtml+xml" href="abstract.htm"></item>
+    <item id="item6" media-type="application/xhtml+xml" href="introduction.htm"></item>
+    <item id="item7" media-type="application/xhtml+xml" href="software_arch.htm"></item>
+    <item id="item8" media-type="application/xhtml+xml" href="net_app_arch.htm"></item>
+    <item id="item9" media-type="application/xhtml+xml" href="net_arch_styles.htm"></item>
+    <item id="item10" media-type="application/xhtml+xml" href="web_arch_domain.htm"></item>
+    <item id="item11" media-type="application/xhtml+xml" href="rest_arch_style.htm"></item>
+    <item id="item12" media-type="application/xhtml+xml" href="evaluation.htm"></item>
+    <item id="item13" media-type="application/xhtml+xml" href="conclusions.htm"></item>
+    <item id="item14" media-type="application/xhtml+xml" href="references.htm"></item>
+    <item id="item15" media-type="image/gif" href="ccss_style.gif"></item>
+    <item id="item16" media-type="image/gif" href="client_server_style.gif"></item>
+    <item id="item17" media-type="image/gif" href="configurability.gif"></item>
+    <item id="item18" media-type="image/gif" href="customizability.gif"></item>
+    <item id="item19" media-type="image/gif" href="early_web_arch.gif"></item>
+    <item id="item20" media-type="image/gif" href="efficiency.gif"></item>
+    <item id="item21" media-type="image/gif" href="evolvability.gif"></item>
+    <item id="item22" media-type="image/gif" href="extensibility.gif"></item>
+    <item id="item23" media-type="image/gif" href="layered_uccss.gif"></item>
+    <item id="item24" media-type="image/gif" href="net_performance.gif"></item>
+    <item id="item25" media-type="image/gif" href="null_style.gif"></item>
+    <item id="item26" media-type="image/gif" href="portability.gif"></item>
+    <item id="item27" media-type="image/gif" href="reliability.gif"></item>
+    <item id="item28" media-type="image/gif" href="rest_derivation.gif"></item>
+    <item id="item29" media-type="image/gif" href="rest_process_view.gif"></item>
+    <item id="item30" media-type="image/gif" href="rest_style.gif"></item>
+    <item id="item31" media-type="image/gif" href="reusability.gif"></item>
+    <item id="item32" media-type="image/gif" href="scalability.gif"></item>
+    <item id="item33" media-type="image/gif" href="simplicity.gif"></item>
+    <item id="item34" media-type="image/gif" href="stateless_cs.gif"></item>
+    <item id="item35" media-type="image/gif" href="uniform_ccss.gif"></item>
+    <item id="item36" media-type="image/gif" href="up_performance.gif"></item>
+    <item id="item37" media-type="image/gif" href="visibility.gif"></item>
+  </manifest>
+  <spine toc="ncxtoc">
+    <itemref idref="item5" />
+    <itemref idref="item6" />
+    <itemref idref="item7" />
+    <itemref idref="item8" />
+    <itemref idref="item9" />
+    <itemref idref="item10" />
+    <itemref idref="item11" />
+    <itemref idref="item12" />
+    <itemref idref="item13" />
+    <itemref idref="item14" />
+  </spine>
+</package>

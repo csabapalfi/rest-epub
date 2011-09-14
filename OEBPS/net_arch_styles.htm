@@ -1,0 +1,1049 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+
+<head>
+<title>
+Fielding Dissertation: CHAPTER 3: Network-based Architectural Styles
+</title>
+</head>
+<body>
+<h1 align="center">CHAPTER 3</h1>
+<h1 align="center">Network-based Architectural Styles</h1>
+<p>
+This chapter presents a survey of common architectural styles for network-based application software within a classification framework that evaluates each style according to the architectural properties it would induce if applied to an architecture for a prototypical network-based hypermedia system.</p>
+<h2><a name="sec_3_1">3.1 Classification Methodology</a></h2>
+<p>
+The purpose of building software is not to create a specific topology of interactions or use a particular component type -- it is to create a system that meets or exceeds the application needs. The architectural styles chosen for a system's design must conform to those needs, not the other way around. Therefore, in order to provide useful design guidance, a classification of architectural styles should be based on the architectural properties induced by those styles.</p>
+<h3><a name="sec_3_1_1">3.1.1 Selection of Architectural Styles for Classification</a></h3>
+<p>
+The set of architectural styles included in the classification is by no means comprehensive of all possible network-based application styles. Indeed, a new style can be formed merely by adding an architectural constraint to any one of the styles surveyed. My goal is to describe a representative sample of styles, particularly those already identified within the software architecture literature, and provide a framework by which other styles can be added to the classification as they are developed.</p>
+<p>
+I have intentionally excluded styles that do not enhance the communication or interaction properties when combined with one of the surveyed styles to form a network-based application. For example, the blackboard architectural style [<a href="references.htm#ref_95">95</a>] consists of a central repository and a set of components (knowledge sources) that operate opportunistically upon the repository. A blackboard architecture can be extended to a network-based system by distributing the components, but the properties of such an extension are entirely based on the interaction style chosen to support the distribution -- notifications via event-based integration, polling <i>a la</i> client-server, or replication of the repository. Thus, there would be no added value from including it in the classification, even though the hybrid style is network-capable.</p>
+<h3><a name="sec_3_1_2">3.1.2 Style-induced Architectural Properties</a></h3>
+<p>
+My classification uses relative changes in the architectural properties induced by each style as a means of illustrating the effect of each architectural style when applied to a system for distributed hypermedia. Note that the evaluation of a style for a given property depends on the type of system interaction being studied, as described in <a href="net_app_arch.htm#sec_2_2">Section 2.2</a>. The architectural properties are relative in the sense that adding an architectural constraint may improve or reduce a given property, or simultaneously improve one aspect of the property and reduce some other aspect of the property. Likewise, improving one property may lead to the reduction of another.</p>
+<p>
+Although our discussion of architectural styles will include those applicable to a wide range of network-based systems, our evaluation of each style will be based on its impact upon an architecture for a single type of software: network-based hypermedia systems. Focusing on a particular type of software allows us to identify the advantages of one style over another in the same way that a designer of a system would evaluate those advantages. Since we do not intend to declare any single style as being universally desirable for all types of software, restricting the focus of our evaluation simply reduces the dimensions over which we need to evaluate. Evaluating the same styles for other types of application software is an open area for future research.</p>
+<h3><a name="sec_3_1_3">3.1.3 Visualization</a></h3>
+<p>
+I use a table of style versus architectural properties as the primary visualization for this classification. The table values indicate the relative influence that the style for a given row has on a column's property. Minus (<b>-</b>) symbols accumulate for negative influences and plus (<b>+</b>) symbols for positive, with plus-minus (<b>&#177;</b>) indicating that it depends on some aspect of the problem domain. Although this is a gross simplification of the details presented in each section, it does indicate the degree to which a style has addressed (or ignored) an architectural property.</p>
+<p>
+An alternative visualization would be a property-based derivation graph for classifying architectural styles. The styles would be classified according to how they are derived from other styles, with the arcs between styles illustrated by architectural properties gained or lost. The starting point of the graph would be the null style (no constraints). It is possible to derive such a graph directly from the descriptions.</p>
+<h2><a name="sec_3_2">3.2 Data-flow Styles</a></h2>
+<table align="center">
+<caption><b><a name="tab_3_1">Table 3-1: Evaluation of Data-flow Styles for Network-based Hypermedia</a></b></caption>
+<tr bgcolor="#039acc">
+<th>Style</th>
+<th>Derivation</th>
+<th><img width="23" height="90" src="../images/net_performance.gif" alt="NTP" /></th>
+<th><img width="23" height="86" src="../images/up_performance.gif" alt="UPP" /></th>
+<th><img width="23" height="72" src="../images/efficiency.gif" alt="EFF" /></th>
+<th><img width="23" height="76" src="../images/scalability.gif" alt="SCL" /></th>
+<th><img width="23" height="73" src="../images/simplicity.gif" alt="SIM" /></th>
+<th><img width="23" height="86" src="../images/evolvability.gif" alt="EVO" /></th>
+<th><img width="23" height="88" src="../images/extensibility.gif" alt="EXT" /></th>
+<th><img width="23" height="70" src="../images/customizability.gif" alt="CUS" /></th>
+<th><img width="23" height="66" src="../images/configurability.gif" alt="CFG" /></th>
+<th><img width="23" height="79" src="../images/reusability.gif" alt="REU" /></th>
+<th><img width="23" height="65" src="../images/visibility.gif" alt="VIS" /></th>
+<th><img width="23" height="75" src="../images/portability.gif" alt="PRT" /></th>
+<th><img width="23" height="75" src="../images/reliability.gif" alt="REL" /></th>
+</tr>
+<tr align="center">
+<td>PF</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>UPF</td>
+<td>PF</td>
+<td><b>-</b></td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<h3><a name="sec_3_2_1">3.2.1 Pipe and Filter (PF)</a></h3>
+<p>
+In a pipe and filter style, each component (filter) reads streams of data on its inputs and produces streams of data on its outputs, usually while applying a transformation to the input streams and processing them incrementally so that output begins before the input is completely consumed [<a href="references.htm#ref_53">53</a>]. This style is also referred to as a one-way data flow network [<a href="references.htm#ref_6">6</a>]. The constraint is that a filter must be completely independent of other filters (zero coupling): it must not share state, control thread, or identity with the other filters on its upstream and downstream interfaces [<a href="references.htm#ref_53">53</a>].</p>
+<p>
+Abowd et al. [<a href="references.htm#ref_1">1</a>] provide an extensive formal description of the pipe and filter style using the Z language. The <em>Khoros</em> software development environment for image processing [<a href="references.htm#ref_112">112</a>] provides a good example of using the pipe and filter style to build a range of applications.</p>
+<p>
+Garlan and Shaw [<a href="references.htm#ref_53">53</a>] describe the advantageous properties of the pipe and filter style as follows. First, PF allows the designer to understand the overall input/output of the system as a simple composition of the behaviors of the individual filters (simplicity). Second, PF supports reuse: any two filters can be hooked together, provided they agree on the data that is being transmitted between them (reusability). Third, PF systems can be easily maintained and enhanced: new filters can be added to existing systems (extensibility) and old filters can be replaced by improved ones (evolvability). Fourth, they permit certain kinds of specialized analysis (verifiability), such as throughput and deadlock analysis. Finally, they naturally support concurrent execution (user-perceived performance).</p>
+<p>
+Disadvantages of the PF style include: propagation delay is added through long pipelines, batch sequential processing occurs if a filter cannot incrementally process its inputs, and no interactivity is allowed. A filter cannot interact with its environment because it cannot know that any particular output stream shares a controller with any particular input stream. These properties decrease user-perceived performance if the problem being addressed does not fit the pattern of a data flow stream.</p>
+<p>
+One aspect of PF styles that is rarely mentioned is that there is an implied &quot;invisible hand&quot; that arranges the configuration of filters in order to establish the overall application. A network of filters is typically arranged just prior to each activation, allowing the application to specify the configuration of filter components based on the task at hand and the nature of the data streams (configurability). This controller function is considered a separate operational phase of the system, and hence a separate architecture, even though one cannot exist without the other.</p>
+<h3><a name="sec_3_2_2">3.2.2 Uniform Pipe and Filter (UPF)</a></h3>
+<p>
+The uniform pipe and filter style adds the constraint that all filters must have the same interface. The primary example of this style is found in the Unix operating system, where filter processes have an interface consisting of one input data stream of characters (stdin) and two output data streams of characters (stdout and stderr). Restricting the interface allows independently developed filters to be arranged at will to form new applications. It also simplifies the task of understanding how a given filter works.</p>
+<p>
+A disadvantage of the uniform interface is that it may reduce network performance if the data needs to be converted to or from its natural format.</p>
+<h2><a name="sec_3_3">3.3 Replication Styles</a></h2>
+<table align="center">
+<caption><b><a name="tab_3_2">Table 3-2: Evaluation of Replication Styles for Network-based Hypermedia</a></b></caption>
+<tr bgcolor="#039acc">
+<th>Style</th>
+<th>Derivation</th>
+<th><img width="23" height="90" src="../images/net_performance.gif" alt="NTP" /></th>
+<th><img width="23" height="86" src="../images/up_performance.gif" alt="UPP" /></th>
+<th><img width="23" height="72" src="../images/efficiency.gif" alt="EFF" /></th>
+<th><img width="23" height="76" src="../images/scalability.gif" alt="SCL" /></th>
+<th><img width="23" height="73" src="../images/simplicity.gif" alt="SIM" /></th>
+<th><img width="23" height="86" src="../images/evolvability.gif" alt="EVO" /></th>
+<th><img width="23" height="88" src="../images/extensibility.gif" alt="EXT" /></th>
+<th><img width="23" height="70" src="../images/customizability.gif" alt="CUS" /></th>
+<th><img width="23" height="66" src="../images/configurability.gif" alt="CFG" /></th>
+<th><img width="23" height="79" src="../images/reusability.gif" alt="REU" /></th>
+<th><img width="23" height="65" src="../images/visibility.gif" alt="VIS" /></th>
+<th><img width="23" height="75" src="../images/portability.gif" alt="PRT" /></th>
+<th><img width="23" height="75" src="../images/reliability.gif" alt="REL" /></th>
+</tr>
+<tr align="center">
+<td>RR</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>++</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>$</td>
+<td>RR</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<h3><a name="sec_3_3_1">3.3.1 Replicated Repository (RR)</a></h3>
+<p>
+Systems based on the replicated repository style [<a href="references.htm#ref_6">6</a>] improve the accessibility of data and scalability of services by having more than one process provide the same service. These decentralized servers interact to provide clients the illusion that there is just one, centralized service. Distributed filesystems, such as XMS [<a href="references.htm#ref_49">49</a>], and remote versioning systems, like CVS [www.cyclic.com], are the primary examples.</p>
+<p>
+Improved user-perceived performance is the primary advantage, both by reducing the latency of normal requests and enabling disconnected operation in the face of primary server failure or intentional roaming off the network. Simplicity remains neutral, since the complexity of replication is offset by the savings of allowing network-unaware components to operate transparently on locally replicated data. Maintaining consistency is the primary concern.</p>
+<h3><a name="sec_3_3_2">3.3.2 Cache ($)</a></h3>
+<p>
+A variant of replicated repository is found in the cache style: replication of the result of an individual request such that it may be reused by later requests. This form of replication is most often found in cases where the potential data set far exceeds the capacity of any one client, as in the WWW [<a href="references.htm#ref_20">20</a>], or where complete access to the repository is unnecessary. Lazy replication occurs when data is replicated upon a not-yet-cached response for a request, relying on locality of reference and commonality of interest to propagate useful items into the cache for later reuse. Active replication can be performed by pre-fetching cacheable entries based on anticipated requests.</p>
+<p>
+Caching provides slightly less improvement than the replicated repository style in terms of user-perceived performance, since more requests will miss the cache and only recently accessed data will be available for disconnected operation. On the other hand, caching is much easier to implement, doesn't require as much processing and storage, and is more efficient because data is transmitted only when it is requested. The cache style becomes network-based when it is combined with a client-stateless-server style.</p>
+<h2><a name="sec_3_4">3.4 Hierarchical Styles</a></h2>
+<table align="center">
+<caption><b><a name="tab_3_3">Table 3-3: Evaluation of Hierarchical Styles for Network-based Hypermedia</a></b></caption>
+<tr bgcolor="#039acc">
+<th>Style</th>
+<th>Derivation</th>
+<th><img width="23" height="90" src="../images/net_performance.gif" alt="NTP" /></th>
+<th><img width="23" height="86" src="../images/up_performance.gif" alt="UPP" /></th>
+<th><img width="23" height="72" src="../images/efficiency.gif" alt="EFF" /></th>
+<th><img width="23" height="76" src="../images/scalability.gif" alt="SCL" /></th>
+<th><img width="23" height="73" src="../images/simplicity.gif" alt="SIM" /></th>
+<th><img width="23" height="86" src="../images/evolvability.gif" alt="EVO" /></th>
+<th><img width="23" height="88" src="../images/extensibility.gif" alt="EXT" /></th>
+<th><img width="23" height="70" src="../images/customizability.gif" alt="CUS" /></th>
+<th><img width="23" height="66" src="../images/configurability.gif" alt="CFG" /></th>
+<th><img width="23" height="79" src="../images/reusability.gif" alt="REU" /></th>
+<th><img width="23" height="65" src="../images/visibility.gif" alt="VIS" /></th>
+<th><img width="23" height="75" src="../images/portability.gif" alt="PRT" /></th>
+<th><img width="23" height="75" src="../images/reliability.gif" alt="REL" /></th>
+</tr>
+<tr align="center">
+<td>CS</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>LS</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center">
+<td>LCS</td>
+<td>CS+LS</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>CSS</td>
+<td>CS</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+</tr>
+<tr align="center">
+<td>C$SS</td>
+<td>CSS+$</td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>LC$SS</td>
+<td>LCS+C$SS</td>
+<td><b>-</b></td>
+<td><b>&#177;</b></td>
+<td><b>+</b></td>
+<td><b>+++</b></td>
+<td><b>++</b></td>
+<td><b>++</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+</tr>
+<tr align="center">
+<td>RS</td>
+<td>CS</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>RDA</td>
+<td>CS</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+</tr>
+</table>
+<h3><a name="sec_3_4_1">3.4.1 Client-Server (CS)</a></h3>
+<p>
+The client-server style is the most frequently encountered of the architectural styles for network-based applications. A server component, offering a set of services, listens for requests upon those services. A client component, desiring that a service be performed, sends a request to the server via a connector. The server either rejects or performs the request and sends a response back to the client. A variety of client-server systems are surveyed by Sinha [<a href="references.htm#ref_123">123</a>] and Umar [<a href="references.htm#ref_131">131</a>].</p>
+<p>
+Andrews [<a href="references.htm#ref_6">6</a>] describes client-server components as follows: A client is a triggering process; a server is a reactive process. Clients make requests that trigger reactions from servers. Thus, a client initiates activity at times of its choosing; it often then delays until its request has been serviced. On the other hand, a server waits for requests to be made and then reacts to them. A server is usually a non-terminating process and often provides service to more than one client.</p>
+<p>
+Separation of concerns is the principle behind the client-server constraints. A proper separation of functionality should simplify the server component in order to improve scalability. This simplification usually takes the form of moving all of the user interface functionality into the client component. The separation also allows the two types of components to evolve independently, provided that the interface doesn't change.</p>
+<p>
+The basic form of client-server does not constrain how application state is partitioned between client and server components. It is often referred to by the mechanisms used for the connector implementation, such as remote procedure call [<a href="references.htm#ref_23">23</a>] or message-oriented middleware [<a href="references.htm#ref_131">131</a>].</p>
+<h3><a name="sec_3_4_2">3.4.2 Layered System (LS) and Layered-Client-Server (LCS)</a></h3>
+<p>
+A layered system is organized hierarchically, each layer providing services to the layer above it and using services of the layer below it [<a href="references.htm#ref_53">53</a>]. Although layered system is considered a &quot;pure&quot; style, its use within network-based systems is limited to its combination with the client-server style to provide layered-client-server.</p>
+<p>
+Layered systems reduce coupling across multiple layers by hiding the inner layers from all except the adjacent outer layer, thus improving evolvability and reusability. Examples include the processing of layered communication protocols, such as the TCP/IP and OSI protocol stacks [<a href="references.htm#ref_138">138</a>], and hardware interface libraries. The primary disadvantage of layered systems is that they add overhead and latency to the processing of data, reducing user-perceived performance [<a href="references.htm#ref_32">32</a>].</p>
+<p>
+Layered-client-server adds proxy and gateway components to the client-server style. A proxy [<a href="references.htm#ref_116">116</a>] acts as a shared server for one or more client components, taking requests and forwarding them, with possible translation, to server components. A gateway component appears to be a normal server to clients or proxies that request its services, but is in fact forwarding those requests, with possible translation, to its &quot;inner-layer&quot; servers. These additional mediator components can be added in multiple layers to add features like load balancing and security checking to the system.</p>
+<p>
+Architectures based on layered-client-server are referred to as two-tiered, three-tiered, or multi-tiered architectures in the information systems literature [<a href="references.htm#ref_131">131</a>].</p>
+<p>
+LCS is also a solution to managing identity in a large scale distributed system, where complete knowledge of all servers would be prohibitively expensive. Instead, servers are organized in layers such that rarely used services are handled by intermediaries rather than directly by each client [<a href="references.htm#ref_6">6</a>].</p>
+<h3><a name="sec_3_4_3">3.4.3 Client-Stateless-Server (CSS)</a></h3>
+<p>
+The client-stateless-server style derives from client-server with the additional constraint that no <em>session state</em> is allowed on the server component. Each request from client to server must contain all of the information necessary to understand the request, and cannot take advantage of any stored context on the server. Session state is kept entirely on the client.</p>
+<p>
+These constraints improve the properties of visibility, reliability, and scalability. Visibility is improved because a monitoring system does not have to look beyond a single request datum in order to determine the full nature of the request. Reliability is improved because it eases the task of recovering from partial failures [<a href="references.htm#ref_133">133</a>]. Scalability is improved because not having to store state between requests allows the server component to quickly free resources and further simplifies implementation.</p>
+<p>
+The disadvantage of client-stateless-server is that it may decrease network performance by increasing the repetitive data (per-interaction overhead) sent in a series of requests, since that data cannot be left on the server in a shared context.</p>
+<h3><a name="sec_3_4_4">3.4.4 Client-Cache-Stateless-Server (C$SS)</a></h3>
+<p>
+The client-cache-stateless-server style derives from the client-stateless-server and cache styles via the addition of cache components. A cache acts as a mediator between client and server in which the responses to prior requests can, if they are considered cacheable, be reused in response to later requests that are equivalent and likely to result in a response identical to that in the cache if the request were to be forwarded to the server. An example system that makes effective use of this style is Sun Microsystems' NFS [<a href="references.htm#ref_115">115</a>].</p>
+<p>
+The advantage of adding cache components is that they have the potential to partially or completely eliminate some interactions, improving efficiency and user-perceived performance.</p>
+<h3><a name="sec_3_4_5">3.4.5 Layered-Client-Cache-Stateless-Server (LC$SS)</a></h3>
+<p>
+The layered-client-cache-stateless-server style derives from both layered-client-server and client-cache-stateless-server through the addition of proxy and/or gateway components. An example system that uses an LC$SS style is the Internet domain name system (DNS).</p>
+<p>
+The advantages and disadvantages of LC$SS are simply a combination of those for LCS and C$SS. However, note that we don't count the contributions of the CS style twice, since the benefits are not additive if they come from the same ancestral derivation.</p>
+<h3><a name="sec_3_4_6">3.4.6 Remote Session (RS)</a></h3>
+<p>
+The remote session style is a variant of client-server that attempts to minimize the complexity, or maximize the reuse, of the client components rather than the server component. Each client initiates a session on the server and then invokes a series of services on the server, finally exiting the session. Application state is kept entirely on the server. This style is typically used when it is desired to access a remote service using a generic client (e.g., TELNET [<a href="references.htm#ref_106">106</a>]) or via an interface that mimics a generic client (e.g., FTP [<a href="references.htm#ref_107">107</a>]).</p>
+<p>
+The advantages of the remote session style are that it is easier to centrally maintain the interface at the server, reducing concerns about inconsistencies in deployed clients when functionality is extended, and improves efficiency if the interactions make use of extended session context on the server. The disadvantages are that it reduces scalability of the server, due to the stored application state, and reduces visibility of interactions, since a monitor would have to know the complete state of the server.</p>
+<h3><a name="sec_3_4_7">3.4.7 Remote Data Access (RDA)</a></h3>
+<p>
+The remote data access style [<a href="references.htm#ref_131">131</a>] is a variant of client-server that spreads the application state across both client and server. A client sends a database query in a standard format, such as SQL, to a remote server. The server allocates a workspace and performs the query, which may result in a very large data set. The client can then make further operations upon the result set (such as table joins) or retrieve the result one piece at a time. The client must know about the data structure of the service to build structure-dependent queries.</p>
+<p>
+The advantages of remote data access are that a large data set can be iteratively reduced on the server side without transmitting it across the network, improving efficiency, and visibility is improved by using a standard query language. The disadvantages are that the client needs to understand the same database manipulation concepts as the server implementation (lacking simplicity) and storing application context on the server decreases scalability. Reliability also suffers, since partial failure can leave the workspace in an unknown state. Transaction mechanisms (e.g., two-phase commit) can be used to fix the reliability problem, though at a cost of added complexity and interaction overhead.</p>
+<h2><a name="sec_3_5">3.5 Mobile Code Styles</a></h2>
+<p>
+Mobile code styles use mobility in order to dynamically change the distance between the processing and source of data or destination of results. These styles are comprehensively examined in Fuggetta et al. [<a href="references.htm#ref_50">50</a>]. A site abstraction is introduced at the architectural level, as part of the active configuration, in order to take into account the location of the different components. Introducing the concept of location makes it possible to model the cost of an interaction between components at the design level. In particular, an interaction between components that share the same location is considered to have negligible cost when compared to an interaction involving communication through the network. By changing its location, a component may improve the proximity and quality of its interaction, reducing interaction costs and thereby improving efficiency and user-perceived performance.</p>
+<p>
+In all of the mobile code styles, a data element is dynamically transformed into a component. Fuggetta et al. [<a href="references.htm#ref_50">50</a>] use an analysis that compares the code's size as a data element to the savings in normal data transfer in order to determine whether mobility is desirable for a given action. This would be impossible to model from an architectural standpoint if the definition of software architecture excludes data elements.</p>
+<table align="center">
+<caption><b><a name="tab_3_4">Table 3-4: Evaluation of Mobile Code Styles for Network-based Hypermedia</a></b></caption>
+<tr bgcolor="#039acc">
+<th>Style</th>
+<th>Derivation</th>
+<th><img width="23" height="90" src="../images/net_performance.gif" alt="NTP" /></th>
+<th><img width="23" height="86" src="../images/up_performance.gif" alt="UPP" /></th>
+<th><img width="23" height="72" src="../images/efficiency.gif" alt="EFF" /></th>
+<th><img width="23" height="76" src="../images/scalability.gif" alt="SCL" /></th>
+<th><img width="23" height="73" src="../images/simplicity.gif" alt="SIM" /></th>
+<th><img width="23" height="86" src="../images/evolvability.gif" alt="EVO" /></th>
+<th><img width="23" height="88" src="../images/extensibility.gif" alt="EXT" /></th>
+<th><img width="23" height="70" src="../images/customizability.gif" alt="CUS" /></th>
+<th><img width="23" height="66" src="../images/configurability.gif" alt="CFG" /></th>
+<th><img width="23" height="79" src="../images/reusability.gif" alt="REU" /></th>
+<th><img width="23" height="65" src="../images/visibility.gif" alt="VIS" /></th>
+<th><img width="23" height="75" src="../images/portability.gif" alt="PRT" /></th>
+<th><img width="23" height="75" src="../images/reliability.gif" alt="REL" /></th>
+</tr>
+<tr align="center">
+<td>VM</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>REV</td>
+<td>CS+VM</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+</tr>
+<tr align="center">
+<td>COD</td>
+<td>CS+VM</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>LCODC$SS</td>
+<td>LC$SS+COD</td>
+<td><b>-</b></td>
+<td><b>++</b></td>
+<td><b>++</b></td>
+<td><b>+4+</b></td>
+<td><b>+&#177;+</b></td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>&#177;</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+</tr>
+<tr align="center">
+<td>MA</td>
+<td>REV+COD</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td>&nbsp;</td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<h3><a name="sec_3_5_1">3.5.1 Virtual Machine (VM)</a></h3>
+<p>
+Underlying all of the mobile code styles is the notion of a virtual machine, or interpreter, style [<a href="references.htm#ref_53">53</a>]. The code must be executed in some fashion, preferably within a controlled environment to satisfy security and reliability concerns, which is exactly what the virtual machine style provides. It is not, in itself, a network-based style, but it is commonly used as such when combined with a component in the client-server style (REV and COD styles).</p>
+<p>
+Virtual machines are commonly used as the engine for scripting languages, including general purpose languages like Perl [<a href="references.htm#ref_134">134</a>] and task-specific languages like PostScript [<a href="references.htm#ref_2">2</a>]. The primary benefits are the separation between instruction and implementation on a particular platform (portability) and ease of extensibility. Visibility is reduced because it is hard to know what an executable will do simply by looking at the code. Simplicity is reduced due to the need to manage the evaluation environment, but that may be compensated in some cases as a result of simplifying the static functionality.</p>
+<h3><a name="sec_3_5_2">3.5.2 Remote Evaluation (REV)</a></h3>
+<p>
+In the remote evaluation style [<a href="references.htm#ref_50">50</a>], derived from the client-server and virtual machine styles, a client component has the know-how necessary to perform a service, but lacks the resources (CPU cycles, data source, etc.) required, which happen to be located at a remote site. Consequently, the client sends the know-how to a server component at the remote site, which in turn executes the code using the resources available there. The results of that execution are then sent back to the client. The remote evaluation style assumes that the provided code will be executed in a sheltered environment, such that it won't impact other clients of the same server aside from the resources being used.</p>
+<p>
+The advantages of remote evaluation include the ability to customize the server component's services, which provides for improved extensibility and customizability, and better efficiency when the code can adapt its actions to the environment inside the server (as opposed to the client making a series of interactions to do the same). Simplicity is reduced due to the need to manage the evaluation environment, but that may be compensated in some cases as a result of simplifying the static server functionality. Scalability is reduced; this can be improved with the server's management of the execution environment (killing long-running or resource-intensive code when resources are tight), but the management function itself leads to difficulties regarding partial failure and reliability. The most significant limitation, however, is the lack of visibility due to the client sending code instead of standardized queries. Lack of visibility leads to obvious deployment problems if the server cannot trust the clients.</p>
+<h3><a name="sec_3_5_3">3.5.3 Code on Demand (COD)</a></h3>
+<p>
+In the code-on-demand style [<a href="references.htm#ref_50">50</a>], a client component has access to a set of resources, but not the know-how on how to process them. It sends a request to a remote server for the code representing that know-how, receives that code, and executes it locally.</p>
+<p>
+The advantages of code-on-demand include the ability to add features to a deployed client, which provides for improved extensibility and configurability, and better user-perceived performance and efficiency when the code can adapt its actions to the client's environment and interact with the user locally rather than through remote interactions. Simplicity is reduced due to the need to manage the evaluation environment, but that may be compensated in some cases as a result of simplifying the client's static functionality. Scalability of the server is improved, since it can off-load work to the client that would otherwise have consumed its resources. Like remote evaluation, the most significant limitation is the lack of visibility due to the server sending code instead of simple data. Lack of visibility leads to obvious deployment problems if the client cannot trust the servers.</p>
+<h3><a name="sec_3_5_4">3.5.4 Layered-Code-on-Demand-Client-Cache-Stateless-Server (LCODC$SS)</a></h3>
+<p>
+As an example of how some architectures are complementary, consider the addition of code-on-demand to the layered-client-cache-stateless-server style discussed above. Since the code can be treated as just another data element, this does not interfere with the advantages of the LC$SS style. An example is the HotJava Web browser [java.sun.com], which allows applets and protocol extensions to be downloaded as typed media.</p>
+<p>
+The advantages and disadvantages of LCODC$SS are just a combination of those for COD and LC$SS. We could go further and discuss the combination of COD with other CS styles, but this survey is not intended to be exhaustive (nor exhausting).</p>
+<h3><a name="sec_3_5_5">3.5.5 Mobile Agent (MA)</a></h3>
+<p>
+In the mobile agent style [<a href="references.htm#ref_50">50</a>], an entire computational component is moved to a remote site, along with its state, the code it needs, and possibly some data required to perform the task. This can be considered a derivation of the remote evaluation and code-on-demand styles, since the mobility works both ways.</p>
+<p>
+The primary advantage of the mobile agent style, beyond those already described for REV and COD, is that there is greater dynamism in the selection of when to move the code. An application can be in the midst of processing information at one location when it decides to move to another location, presumably in order to reduce the distance between it and the next set of data it wishes to process. In addition, the reliability problem of partial failure is reduced because the application state is in one location at a time [<a href="references.htm#ref_50">50</a>].</p>
+<h2><a name="sec_3_6">3.6 Peer-to-Peer Styles</a></h2>
+<table align="center">
+<caption><b><a name="tab_3_5">Table 3-5: Evaluation of Peer-to-Peer Styles for Network-based Hypermedia</a></b></caption>
+<tr bgcolor="#039acc">
+<th>Style</th>
+<th>Derivation</th>
+<th><img width="23" height="90" src="../images/net_performance.gif" alt="NTP" /></th>
+<th><img width="23" height="86" src="../images/up_performance.gif" alt="UPP" /></th>
+<th><img width="23" height="72" src="../images/efficiency.gif" alt="EFF" /></th>
+<th><img width="23" height="76" src="../images/scalability.gif" alt="SCL" /></th>
+<th><img width="23" height="73" src="../images/simplicity.gif" alt="SIM" /></th>
+<th><img width="23" height="86" src="../images/evolvability.gif" alt="EVO" /></th>
+<th><img width="23" height="88" src="../images/extensibility.gif" alt="EXT" /></th>
+<th><img width="23" height="70" src="../images/customizability.gif" alt="CUS" /></th>
+<th><img width="23" height="66" src="../images/configurability.gif" alt="CFG" /></th>
+<th><img width="23" height="79" src="../images/reusability.gif" alt="REU" /></th>
+<th><img width="23" height="65" src="../images/visibility.gif" alt="VIS" /></th>
+<th><img width="23" height="75" src="../images/portability.gif" alt="PRT" /></th>
+<th><img width="23" height="75" src="../images/reliability.gif" alt="REL" /></th>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>EBI</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>- -</b></td>
+<td><b>&#177;</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+</tr>
+<tr align="center">
+<td>C2</td>
+<td>EBI+LCS</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td><b>&#177;</b></td>
+<td><b>+</b></td>
+<td><b>&#177;</b></td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>DO</td>
+<td>CS+CS</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+</tr>
+<tr align="center">
+<td>BDO</td>
+<td>DO+LCS</td>
+<td><b>-</b></td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+</tr>
+</table>
+<h3><a name="sec_3_6_1">3.6.1 Event-based Integration (EBI)</a></h3>
+<p>
+The event-based integration style, also known as the implicit invocation or event system style, reduces coupling between components by removing the need for identity on the connector interface. Instead of invoking another component directly, a component can announce (or broadcast) one or more events. Other components in a system can register interest in that type of event and, when the event is announced, the system itself invokes all of the registered components [<a href="references.htm#ref_53">53</a>]. Examples include the Model-View-Controller paradigm in Smalltalk-80 [<a href="references.htm#ref_72">72</a>] and the integration mechanisms of many software engineering environments, including Field [<a href="references.htm#ref_113">113</a>], SoftBench [<a href="references.htm#ref_29">29</a>], and Polylith [<a href="references.htm#ref_110">110</a>].</p>
+<p>
+The event-based integration style provides strong support for extensibility through the ease of adding new components that listen for events, for reuse by encouraging a general event interface and integration mechanism, and for evolution by allowing components to be replaced without affecting the interfaces of other components [<a href="references.htm#ref_53">53</a>]. Like pipe-and-filter systems, a higher-level configuring architecture is needed for the &quot;invisible hand&quot; that places components on the event interface. Most EBI systems also include explicit invocation as a complementary form of interaction [<a href="references.htm#ref_53">53</a>]. For applications that are dominated by data monitoring, rather than data retrieval, EBI can improve efficiency by removing the need for polling interactions.</p>
+<p>
+The basic form of EBI system consists of one event bus to which all components listen for events of interest to them. Of course, this immediately leads to scalability issues with regard to the number of notifications, event storms as other components broadcast as a result of events caused by that notification, and a single point of failure in the notification delivery system. This can be ameliorated though the use of layered systems and filtering of events, at the cost of simplicity.</p>
+<p>
+Other disadvantages of EBI systems are that it can be hard to anticipate what will happen in response to an action (poor understandability) and event notifications are not suitable for exchanging large-grain data [<a href="references.htm#ref_53">53</a>]. Also, there is no support for recovery from partial failure.</p>
+<h3><a name="sec_3_6_2">3.6.2 C2</a></h3>
+<p>
+The C2 architectural style [<a href="references.htm#ref_128">128</a>] is directed at supporting large-grain reuse and flexible composition of system components by enforcing substrate independence. It does so by combining event-based integration with layered-client-server. Asynchronous notification messages going down, and asynchronous request messages going up, are the sole means of intercomponent communication. This enforces loose coupling of dependency on higher layers (service requests may be ignored) and zero coupling with lower levels (no knowledge of notification usage), improving control over the system without losing most of the advantages of EBI.</p>
+<p>
+Notifications are announcements of a state change within a component. C2 does not constrain what should be included with a notification: a flag, a delta of state change, or a complete state representation are all possibilities. A connector's primary responsibility is the routing and broadcasting of messages; its secondary responsibility is message filtering. The introduction of layered filtering of messages solves the EBI problems with scalability, while improving evolvability and reusability as well. Heavyweight connectors that include monitoring capabilities can be used to improve visibility and reduce the reliability problems of partial failure.</p>
+<h3><a name="sec_3_6_3">3.6.3 Distributed Objects</a></h3>
+<p>
+The distributed objects style organizes a system as a set of components interacting as peers. An object is an entity that encapsulates some private state information or data, a set of associated operations or procedures that manipulate the data, and possibly a thread of control, so that collectively they can be considered a single unit [<a href="references.htm#ref_31">31</a>]. In general, an object's state is completely hidden and protected from all other objects. The only way it can be examined or modified is by making a request or invocation on one of the object's publicly accessible operations. This creates a well-defined interface for each object, enabling the specification of an object's operations to be made public while at the same time keeping the implementation of its operations and the representation of its state information private, thus improving evolvability. </p>
+<p>
+An operation may invoke other operations, possibly on other objects. These operations may in turn make invocations on others, and so on. A chain of related invocations is referred to as an action [<a href="references.htm#ref_31">31</a>]. State is distributed among the objects. This can be advantageous in terms of keeping the state where it is most likely to be up-to-date, but has the disadvantage in that it is difficult to obtain an overall view of system activity (poor visibility).</p>
+<p>
+In order for one object to interact with another, it must know the identity of that other object. When the identity of an object changes, it is necessary to modify all other objects that explicitly invoke it [<a href="references.htm#ref_53">53</a>]. There must be some controller object that is responsible for maintaining the system state in order to complete the application requirements. Central issues for distributed object systems include: object management, object interaction management, and resource management [<a href="references.htm#ref_31">31</a>].</p>
+<p>
+Object systems are designed to isolate the data being processed. As a consequence, data streaming is not supported in general. However, this does provide better support for object mobility when combined with the mobile agent style.</p>
+<h3><a name="sec_3_6_4">3.6.4 Brokered Distributed Objects</a></h3>
+<p>
+In order to reduce the impact of identity, modern distributed object systems typically use one or more intermediary styles to facilitate communication. This includes event-based integration and brokered client/server [<a href="references.htm#ref_28">28</a>]. The brokered distributed object style introduces name resolver components whose purpose is to answer client object requests for general service names with the specific name of an object that will satisfy the request. Although improving reusability and evolvability, the extra level of indirection requires additional network interactions, reducing efficiency and user-perceived performance.</p>
+<p>
+Brokered distributed object systems are currently dominated by the industrial standards development of CORBA within the OMG [<a href="references.htm#ref_97">97</a>] and the international standards development of Open Distributed Processing (ODP) within ISO/IEC [<a href="references.htm#ref_66">66</a>].</p>
+<p>
+In spite of all the interest associated with distributed objects, they fare poorly when compared to most other network-based architectural styles. They are best used for applications that involve the remote invocation of encapsulated services, such as hardware devices, where the efficiency and frequency of network interactions is less a concern.</p>
+<h2><a name="sec_3_7">3.7 Limitations</a></h2>
+<p>
+Each architectural style promotes a certain type of interaction among components. When components are distributed across a wide-area network, use or misuse of the network drives application usability. By characterizing styles by their influence on architectural properties, and particularly on the network-based application performance of a distributed hypermedia system, we gain the ability to better choose a software design that is appropriate for the application. There are, however, a couple limitations with the chosen classification.</p>
+<p>
+The first limitation is that the evaluation is specific to the needs of distributed hypermedia. For example, many of the good qualities of the pipe-and-filter style disappear if the communication is fine-grained control messages, and are not applicable at all if the communication requires user interactivity. Likewise, layered caching only adds to latency, without any benefit, if none of the responses to client requests are cacheable. This type of distinction does not appear in the classification, and is only addressed informally in the discussion of each style. I believe this limitation can be overcome by creating separate classification tables for each type of communication problem. Example problem areas would include, among others, large grain data retrieval, remote information monitoring, search, remote control systems, and distributed processing.</p>
+<p>
+A second limitation is with the grouping of architectural properties. In some cases, it is better to identify the specific aspects of, for example, understandability and verifiability induced by an architectural style, rather than lumping them together under the rubric of simplicity. This is particularly the case for styles which might improve verifiability at the expense of understandability. However, the more abstract notion of a property also has value as a single metric, since we do not want to make the classification so specific that no two styles impact the same category. One solution would be a classification that presented both the specific properties and a summary property.</p>
+<p>
+Regardless, this initial survey and classification is a necessary prerequisite to any further classifications that might address its limitations.</p>
+<h2><a name="sec_3_8">3.8 Related Work</a></h2>
+<h3><a name="sec_3_8_1">3.8.1 Classification of Architectural Styles and Patterns</a></h3>
+<p>
+The area of research most directly related to this chapter is the identification and classification of architectural styles and architecture-level patterns.</p>
+<p>
+Shaw [<a href="references.htm#ref_117">117</a>] describes a few architectural styles, later expanded in Garlan and Shaw [<a href="references.htm#ref_53">53</a>]. A preliminary classification of these styles is presented in Shaw and Clements [<a href="references.htm#ref_122">122</a>] and repeated in Bass et al. [<a href="references.htm#ref_9">9</a>], in which a two-dimensional, tabular classification strategy is used with control and data issues as the primary axes, organized by the following categories of features: which kinds of components and connectors are used in the style; how control is shared, allocated, and transferred among the components; how data is communicated through the system; how data and control interact; and, what type of reasoning is compatible with the style. The primary purpose of the taxonomy is to identify style characteristics, rather than to assist in their comparison. It concludes with a small set of &quot;rules of thumb&quot; as a form of design guidance</p>
+<p>
+Unlike this chapter, the Shaw and Clements [<a href="references.htm#ref_122">122</a>] classification does not assist in evaluating designs in a way that is useful to an application designer. The problem is that the purpose of building software is not to build a specific shape, topology or component type, so organizing the classification in that fashion does not help a designer find a style that corresponds to their needs. It also mixes the essential differences among styles with other issues which have only incidental significance, and obscures the derivation relationships among styles. Furthermore, it does not focus on any particular type of architecture, such as network-based applications. Finally, it does not describe how styles can be combined, nor the effect of their combination.</p>
+<p>
+Buschmann and Meunier [<a href="references.htm#ref_27">27</a>] describe a classification scheme that organizes patterns according to granularity of abstraction, functionality, and structural principles. The granularity of abstraction separates patterns into three categories: architectural frameworks (templates for architectures), design patterns, and idioms. Their classification addresses some of the same issues as this dissertation, such as separation of concerns and structural principles that lead to architectural properties, but only covers two of the architectural styles described here. Their classification is considerably expanded in Buschmann et al. [<a href="references.htm#ref_28">28</a>] with more extensive discussion of architectural patterns and their relation to software architecture.</p>
+<p>
+Zimmer [<a href="references.htm#ref_137">137</a>] organizes design patterns using a graph based on their relationships, making it easier to understand the overall structure of the patterns in the Gamma et al. [<a href="references.htm#ref_51">51</a>] catalog. However, the patterns classified are not architectural patterns, and the classification is based exclusively on derivation or uses relationships rather than on architectural properties.</p>
+<h3><a name="sec_3_8_2">3.8.2 Distributed Systems and Programming Paradigms</a></h3>
+<p>
+Andrews [<a href="references.htm#ref_6">6</a>] surveys how processes in a distributed program interact via message passing. He defines concurrent programs, distributed programs, kinds of processes in a distributed program (filters, clients, servers, peers), interaction paradigms, and communication channels. Interaction paradigms represent the communication aspects of software architectural styles. He describes paradigms for one-way data flow through networks of filters (pipe-and-filter), client-server, heartbeat, probe/echo, broadcast, token passing, replicated servers, and replicated workers with bag of tasks. However, the presentation is from the perspective of multiple processes cooperating on a single task, rather than general network-based architectural styles.</p>
+<p>
+Sullivan and Notkin [<a href="references.htm#ref_126">126</a>] provide a survey of implicit invocation research and describe its application to improving the evolution quality of software tool suites. Barrett et al. [<a href="references.htm#ref_8">8</a>] present a survey of event-based integration mechanisms by building a framework for comparison and then seeing how some systems fit within that framework. Rosenblum and Wolf [<a href="references.htm#ref_114">114</a>] investigate a design framework for Internet-scale event notification. All are concerned with the scope and requirements of an EBI style, rather than providing solutions for network-based systems.</p>
+<p>
+Fuggetta et al. [<a href="references.htm#ref_50">50</a>] provide a thorough examination and classification of mobile code paradigms. This chapter builds upon their work to the extent that I compare the mobile code styles with other network-capable styles, and place them within a single framework and set of architectural definitions.</p>
+<h3><a name="sec_3_8_3">3.8.3 Middleware</a></h3>
+<p>
+Bernstein [<a href="references.htm#ref_22">22</a>] defines middleware as a distributed system service that includes standard programming interfaces and protocols. These services are called middleware because they act as a layer above the OS and networking software and below industry-specific applications. Umar [<a href="references.htm#ref_131">131</a>] presents an extensive treatment of the subject.</p>
+<p>
+Architecture research regarding middleware focuses on the problems and effects of integrating components with off-the-shelf middleware. Di Nitto and Rosenblum [<a href="references.htm#ref_38">38</a>] describe how the usage of middleware and predefined components can influence the architecture of a system being developed and, conversely, how specific architectural choices can constrain the selection of middleware. Dashofy et al. [<a href="references.htm#ref_35">35</a>] discuss the use of middleware with the C2 style.</p>
+<p>
+Garlan et al. [<a href="references.htm#ref_56">56</a>] point out some of the architectural assumptions within off-the-shelf components, examining the authors' problems with reusing subsystems in creating the Aesop tool for architectural design [<a href="references.htm#ref_54">54</a>]. They classify the problems into four main categories of assumptions that can contribute to architectural mismatch: nature of components, nature of connectors, global architectural structure, and construction process.</p>
+<h2><a name="sec_3_9">3.9 Summary</a></h2>
+<p>
+This chapter has presented a survey of common architectural styles for network-based application software within a classification framework that evaluates each style according to the architectural properties it would induce if applied to an architecture for a prototypical network-based hypermedia system. The overall classification is summarized below in <a href="net_arch_styles.htm#tab_3_6">Table 3-6</a>.</p>
+<p>
+The next chapter uses the insight garnered from this survey and classification to hypothesize methods for developing and evaluating an architectural style to guide the design of improvements for the modern World Wide Web architecture.</p>
+<table align="center">
+<caption><b><a name="tab_3_6">Table 3-6: Evaluation Summary</a></b></caption>
+<tr bgcolor="#039acc">
+<th>Style</th>
+<th>Derivation</th>
+<th><img width="23" height="90" src="../images/net_performance.gif" alt="NTP" /></th>
+<th><img width="23" height="86" src="../images/up_performance.gif" alt="UPP" /></th>
+<th><img width="23" height="72" src="../images/efficiency.gif" alt="EFF" /></th>
+<th><img width="23" height="76" src="../images/scalability.gif" alt="SCL" /></th>
+<th><img width="23" height="73" src="../images/simplicity.gif" alt="SIM" /></th>
+<th><img width="23" height="86" src="../images/evolvability.gif" alt="EVO" /></th>
+<th><img width="23" height="88" src="../images/extensibility.gif" alt="EXT" /></th>
+<th><img width="23" height="70" src="../images/customizability.gif" alt="CUS" /></th>
+<th><img width="23" height="66" src="../images/configurability.gif" alt="CFG" /></th>
+<th><img width="23" height="79" src="../images/reusability.gif" alt="REU" /></th>
+<th><img width="23" height="65" src="../images/visibility.gif" alt="VIS" /></th>
+<th><img width="23" height="75" src="../images/portability.gif" alt="PRT" /></th>
+<th><img width="23" height="75" src="../images/reliability.gif" alt="REL" /></th>
+</tr>
+<tr align="center">
+<td>PF</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>UPF</td>
+<td>PF</td>
+<td><b>-</b></td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center">
+<td>RR</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>++</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>$</td>
+<td>RR</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center">
+<td>CS</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>LS</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center">
+<td>LCS</td>
+<td>CS+LS</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>CSS</td>
+<td>CS</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+</tr>
+<tr align="center">
+<td>C$SS</td>
+<td>CSS+$</td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>LC$SS</td>
+<td>LCS+C$SS</td>
+<td><b>-</b></td>
+<td><b>&#177;</b></td>
+<td><b>+</b></td>
+<td><b>+++</b></td>
+<td><b>++</b></td>
+<td><b>++</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+</tr>
+<tr align="center">
+<td>RS</td>
+<td>CS</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>RDA</td>
+<td>CS</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+</tr>
+<tr align="center">
+<td>VM</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>REV</td>
+<td>CS+VM</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+</tr>
+<tr align="center">
+<td>COD</td>
+<td>CS+VM</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>LCODC$SS</td>
+<td>LC$SS+COD</td>
+<td><b>-</b></td>
+<td><b>++</b></td>
+<td><b>++</b></td>
+<td><b>+4+</b></td>
+<td><b>+&#177;+</b></td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>&#177;</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+</tr>
+<tr align="center">
+<td>MA</td>
+<td>REV+COD</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td>&nbsp;</td>
+<td><b>&#177;</b></td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>EBI</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>- -</b></td>
+<td><b>&#177;</b></td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+</tr>
+<tr align="center">
+<td>C2</td>
+<td>EBI+LCS</td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td><b>&#177;</b></td>
+<td><b>+</b></td>
+<td><b>&#177;</b></td>
+</tr>
+<tr align="center" bgcolor="#a0ddf0">
+<td>DO</td>
+<td>CS+CS</td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>+</b></td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td><b>-</b></td>
+</tr>
+<tr align="center">
+<td>BDO</td>
+<td>DO+LCS</td>
+<td><b>-</b></td>
+<td><b>-</b></td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td>&nbsp;</td>
+<td><b>++</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+<td><b>+</b></td>
+<td><b>++</b></td>
+<td><b>-</b></td>
+<td><b>+</b></td>
+<td>&nbsp;</td>
+</tr>
+</table>
+
+</body>
+
+
+</html>
