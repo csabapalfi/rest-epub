@@ -8,5 +8,4 @@ An .epub book is basically some HTML and metadata in a zip file.
 
 * Download the [epub](https://github.com/downloads/csabapalfi/rest-epub/rest-dissertation.epub) I created
 
-* or you can download the repository as [zip](https://github.com/csabapalfi/rest-epub/zipball/
-master) then rename the file to .epub
+* or you can download the repository as [zip](https://github.com/csabapalfi/rest-epub/zipball/master) then rename the file to .epub
